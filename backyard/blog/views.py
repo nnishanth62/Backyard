@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.views.generic import ListView, DetailView
+from django.views.generic import ListView, DetailView, CreateView
 from .models import Post
 
 '''
@@ -13,3 +13,9 @@ class HomeView(ListView):
 class PostDetailView(DetailView):
     model = Post
     template_name = "post_detail.html"
+
+class MakePostView(CreateView):
+    model = Post
+    template_name = "make_post.html"
+    fields = "__all__"
+    #fields = ("title", "body")
