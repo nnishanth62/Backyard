@@ -3,12 +3,18 @@
 
 {% block content %}
 
-<h1>Make Posts!</h1>
-<br/><br/>
-<div class = 'form-group'>
-    <form method = "POST">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button class="btn btn-secondary">Post</button>
-</div>
+{% if user.is_authenticated %}
+    <h1>Make Posts!</h1>
+    <br/><br/>
+    <div class = 'form-group'>
+        <form method = "POST">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button class="btn btn-secondary">Post</button>
+    </div>
+{% else %}
+Please log in to access this page!
+
+{% endif %}
+
 {% endblock %}
