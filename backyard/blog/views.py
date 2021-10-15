@@ -17,6 +17,11 @@ class HomeView(ListView):
     # ordering = ['-id']  # temporary, most recent post appears first
 
 
+def CategoryView(request, cats):
+    category_posts = Post.objects.filter(category=cats)
+    return render(request, 'category.html', {'cats': cats.title(), 'category_posts': category_posts})
+
+
 class PostDetailView(DetailView):
     model = Post
     template_name = "post_detail.html"
@@ -29,11 +34,13 @@ class MakePostView(CreateView):
     # fields = "__all__"
     # fields = ("title", "body")
 
+
 class AddCategoryView(CreateView):
     model = Category
     template_name = "add_category.html"
     fields = "__all__"
     # fields = ("title", "body")
+
 
 class UpdatePostView(UpdateView):
     model = Post
