@@ -37,6 +37,5 @@ class EditForm(forms.ModelForm): #Model Form allows us to create post fields
 			'body': forms.Textarea(attrs = {'class': 'form-control'}),
 			'snippet': forms.Textarea(attrs={'class': 'form-control'}),
 
-
-
 		}
+		
