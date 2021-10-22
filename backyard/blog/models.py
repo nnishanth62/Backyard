@@ -24,6 +24,7 @@ class Post(models.Model):
     #body = models.TextField()
     body = RichTextField(blank=True, null=True)
     post_date = models.DateField(auto_now_add=True)
+    snippet = models.CharField(max_length=255)
     category = models.CharField(max_length=255, default="event")
     likes = models.ManyToManyField(User, related_name = 'blog_post')
 
