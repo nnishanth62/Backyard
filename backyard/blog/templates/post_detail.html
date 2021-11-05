@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load static %}
 {% block title %} {{ post.title_tag }} {% endblock %}
 
 {% block content %}
@@ -56,7 +57,14 @@
 <div class="card mb-3">
   <div class="row g-0">
     <div class="col-md-2">
-      <img src = "{{ post.author.profile.profile_pic.url }}" class = "card-img">
+    {% if post.author.profile.profile_pic %}    
+        <img src = "{{ post.author.profile.profile_pic.url }}" class = "card-img">
+    {% else %}
+        <img src = "{% static 'blog/images/default_image.png' %}"  class = "card-img">
+
+    {% endif %}
+
+
     </div>
     <div class="col-md-10">
       <div class="card-body">
