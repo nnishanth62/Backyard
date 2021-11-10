@@ -4,18 +4,24 @@
 {% block content %}
 
 {% if user.is_authenticated %}
-    <h1>Edit your profile page here!</h1>
-    <br/><br/>
-    <div class = 'form-group'>
-        <form method = "POST" enctype="multipart/form-data">
-            {% csrf_token %}
-            {{ form.as_p }}
-            <button class="btn btn-secondary">Update Your Profile Page</button>
-        </form>
-    </div>
+    {% if user.id == profile.user.id %}
+        <h1>Edit your profile page here!</h1>
+        <br/><br/>
+        <div class = 'form-group'>
+            <form method = "POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button class="btn btn-secondary">Update Your Profile Page</button>
+            </form>
+        </div>
+
+    {% else %}
+        You're not supposed to be editing this page!
+
+    {% endif %}
 
 {% else %}
-Please log in to access this page!
+    Please log in to access this page!
 
 {% endif %}
 
