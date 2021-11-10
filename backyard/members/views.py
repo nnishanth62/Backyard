@@ -1,9 +1,9 @@
 from django.shortcuts import render, get_object_or_404
 from django.views import generic
-from django.views.generic import DetailView
+from django.views.generic import DetailView, CreateView
 #from django.contrib.auth.forms import UserCreationForm, UserChangeForm, PasswordChangeForm
 from django.urls import reverse_lazy
-from .forms import SignUpForm, EditProfileForm, PasswordChangingForm
+from .forms import SignUpForm, EditProfileForm, PasswordChangingForm, ProfilePageForm
 from django.contrib.auth.views import PasswordChangeView
 from blog.models import Profile
 
@@ -18,8 +18,6 @@ class ShowProfilePageView(DetailView):
         context["page_user"] = page_user
         return context
 
-
-
 class EditProfilePageView(generic.UpdateView):
     model = Profile
     template_name = 'registration/edit_profile_page.html'
@@ -32,6 +30,15 @@ class PasswordsChangeView(PasswordChangeView):
     # success_url = reverse_lazy('home')
     success_url = reverse_lazy('password_success ')
 
+class CreateProfilePageView(CreateView):
+    model = Profile
+    form_class = ProfilePageForm
+    template_name = "registration/create_user_profile_page.html"
+    #fields = '__all__'
+
+    def form_valid(self, form): #make user id available to profile so that when the form is saved, it's under the right user
+        form.instance.user = self.request.user #User is filling out form, grab user, to make it available to form
+        return super().form_valid(form)
 
 def password_success(request):
     return render(request, 'registration/password_success.html', {})

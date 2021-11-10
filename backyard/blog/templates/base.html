@@ -67,7 +67,7 @@
               <li><a class="dropdown-item" href="{% url 'edit_profile_page' user.profile.id %}"> Edit Your Profile Page </a></li>
               <li><a class="dropdown-item" href="{% url 'show_profile_page' user.profile.id %}"> Display Profile Page </a></li>
             {% else %}
-              <li><a class="dropdown-item" href="#"> Create Your Profile Page </a></li>
+              <li><a class="dropdown-item" href="{% url 'create_profile_page' %}"> Create Your Profile Page </a></li>
             {% endif %}
 
 
