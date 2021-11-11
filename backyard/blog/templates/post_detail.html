@@ -25,10 +25,6 @@
 <br/><br/>
 {{ post.body |safe}}
 
-<br/><br/>
-<a href = "{% url 'home' %}" class="btn btn-secondary">Back</a>
-
-<br/><br/>
 <hr>
 <br/>
 
@@ -53,6 +49,26 @@
 </form>
 
 <br/><br/>
+<hr>
+<h3>Comments</h3>
+<br/>
+{% if not post.comments.all %}
+    No comments yet... <a href="#">
+    Add one </a>
+{% else %}
+    {% for comment in post.comments.all %}
+        <strong>
+            {{ comment.name}} -
+            {{ comment.date_added}}
+        </strong>
+        <br/>
+        {{ comment.body}}
+        <br/><br/>
+    {% endfor %}
+{% endif %}
+<hr>
+
+
 
 <div class="card mb-3">
   <div class="row g-0">
