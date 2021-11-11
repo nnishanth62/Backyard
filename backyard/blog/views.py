@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
-from .models import Post, Category
-from .forms import PostForm, EditForm
+from .models import Post, Category, Comment
+from .forms import PostForm, EditForm, CommentForm
 from django.urls import reverse_lazy, reverse
 from django.http import HttpResponseRedirect
 
@@ -76,6 +76,15 @@ class MakePostView(CreateView):
     # fields = "__all__"
     # fields = ("title", "body")
 
+class AddCommentView(CreateView):
+    model = Comment
+    template_name = "add_comment.html"
+    form_class = CommentForm  # from forms.py
+
+    def form_valid(self, form):  # make user id available to profile so that when the form is saved, it's under the right user
+            form.instance.post_id = self.kwargs['pk']  # User is filling out form, grab user, to make it available to form
+            return super().form_valid(form)
+    success_url = reverse_lazy('home')
 
 class AddCategoryView(CreateView):
     model = Category
