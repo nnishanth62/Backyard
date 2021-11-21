@@ -1,9 +1,9 @@
 {% extends 'base.html' %}
-{% block title %} Backyard Things {% endblock %}
+{% block title %} Filter {% endblock %}
 
 {% block content %}
 
-<h1> Backyard Things </h1>
+<h1> Filter your feed: </h1>
   {%for item in cat_menu_list%}
     <h4><a class="dropdown-item" href="{% url 'category' item|slugify %}">
         {{item}}
