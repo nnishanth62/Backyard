@@ -2,8 +2,19 @@
 
 {% block content %}
 
-<h1>Community Feed</h1>
+<style>
+	.feed{
+		display: inline-block;
+		padding-right: 8%;
+	}
+	#map{
+		height: 400px;
+		width: 400px;
+	}
+</style>
 
+<h1 align="left">Community Feed</h1>
+<div class="feed">
 <ul>
 	{% for post in object_list %}
 	<li><a href = "{% url 'post_detail' post.pk %}">
@@ -25,6 +36,55 @@
 
 	{% endfor %}
 </ul>
+</div>
+<div class="feed">
+	<h5 align="center">Find a community fridge near you: </h5>
+	<div id="map"></div>
+	<script>
+		function initMap() {
+			var location = {lat: 40.715210, lng:-73.983750};
+			var map = new google.maps.Map(document.getElementById("map"), {
+				zoom: 12,
+				center: location
+			});
+			var commFridges = [
+					['Downtown Brooklyn Community Fridge', 40.692040, -73.986490],
+					['Brooklyn Heights Community Fridge', 40.697000, -73.993430],
+					['Fort Greene Community Fridge', 40.693340, -73.971740],
+					['LES Community Fridge', 40.715210, -73.983750],
+					['Chelsea Community Fridge', 40.737810, -73.995510],
+					['East Village Community Fridge', 40.730260, -73.983750],
+					['Williamsburg Community Fridge', 40.719130, -73.961780],
+					['Hells Kitchen Community Fridge', 40.762070, -73.993930]
+			];
+			var marker = new google.maps.Marker({
+				position: location,
+				map: map
+			});
+			var infowindow = new google.maps.InfoWindow();
+			var fridgeMarker, i;
+
+			for (i = 0; i < commFridges.length; i++) {
+				fridgeMarker = new google.maps.Marker({
+					position: new google.maps.LatLng(commFridges[i][1], commFridges[i][2]),
+					map: map
+				});
+
+				google.maps.event.addListener(fridgeMarker, 'click', (function (fridgeMarker, i, infowindow) {
+					return function () {
+						infowindow.setContent(commFridges[i][0]);
+						infowindow.open(map, fridgeMarker);
+					}
+				})
+				(fridgeMarker, i, infowindow));
+			}
+		}
+	</script>
+	<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCVih7ScZqK84f48YbzcfN5oL40S3Vt4c0&callback=initMap">
+	</script>
+
+
+</div>
 
 
 
