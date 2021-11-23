@@ -4,6 +4,8 @@ from django.urls import reverse
 from datetime import datetime, date
 # from ckeditor_uploader.fields import RichTextUploadingField
 from ckeditor.fields import RichTextField
+from django.db import models
+from location_field.models.plain import PlainLocationField
 
 
 class Category(models.Model):
@@ -15,7 +17,6 @@ class Category(models.Model):
     def get_absolute_url(self):
         # return reverse("post_detail", args=(str(self.id)))
         return reverse("home")  # returns to homepage
-
 
 class Profile(models.Model):
     user = models.OneToOneField(User, null=True, on_delete=models.CASCADE)
@@ -37,13 +38,16 @@ class Profile(models.Model):
 class Post(models.Model):
     title = models.CharField(max_length=255)
     header_image = models.ImageField(null=True, blank=True, upload_to="images/")
-    title_tag = models.CharField(max_length=255)
+    # title_tag = models.CharField(max_length=255)
+    # location = models.CharField(max_length=255)
+    location = PlainLocationField(based_fields=['city'], zoom=7)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     # body = models.TextField()
     body = RichTextField(blank=True, null=True)
     post_date = models.DateField(auto_now_add=True)
     snippet = models.CharField(max_length=255)
     category = models.CharField(max_length=255, default="event")
+    # locations = models.CharField(max_length=255)
     likes = models.ManyToManyField(User, related_name='blog_post')
 
     def total_likes(self):

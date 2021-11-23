@@ -4,6 +4,7 @@ from .models import Post, Category, Comment
 from .forms import PostForm, EditForm, CommentForm
 from django.urls import reverse_lazy, reverse
 from django.http import HttpResponseRedirect
+
 # from .projectSD.Backyard.backyard.backyard import settings
 
 '''
@@ -11,19 +12,21 @@ def home(request):
     return render(request, 'home.html', {})
 '''
 
+
 def LikeView(request, pk):
     post = get_object_or_404(Post, id=request.POST.get('post_id'))
     liked = False
-    if post.likes.filter(id = request.user.id).exists(): #if a like already exists remove it
+    if post.likes.filter(id=request.user.id).exists():  # if a like already exists remove it
         post.likes.remove(request.user)
         liked = False
     else:
-        post.likes.add(request.user) #if a like doesn't exist add it
+        post.likes.add(request.user)  # if a like doesn't exist add it
         liked = True
 
     return HttpResponseRedirect(reverse('post_detail', args=[str(pk)]))
-    #if user.is_authenticated:
+    # if user.is_authenticated:
     #   return HttpResponseRedirect(reverse('register'))
+
 
 class HomeView(ListView):
     model = Post
@@ -77,15 +80,19 @@ class MakePostView(CreateView):
     # fields = "__all__"
     # fields = ("title", "body")
 
+
 class AddCommentView(CreateView):
     model = Comment
     template_name = "add_comment.html"
     form_class = CommentForm  # from forms.py
 
-    def form_valid(self, form):  # make user id available to profile so that when the form is saved, it's under the right user
-            form.instance.post_id = self.kwargs['pk']  # User is filling out form, grab user, to make it available to form
-            return super().form_valid(form)
+    def form_valid(self,
+                   form):  # make user id available to profile so that when the form is saved, it's under the right user
+        form.instance.post_id = self.kwargs['pk']  # User is filling out form, grab user, to make it available to form
+        return super().form_valid(form)
+
     success_url = reverse_lazy('home')
+
 
 class AddCategoryView(CreateView):
     model = Category
@@ -105,5 +112,3 @@ class DeletePostView(DeleteView):
     model = Post
     template_name = "delete_post.html"
     success_url = reverse_lazy('home')
-
-

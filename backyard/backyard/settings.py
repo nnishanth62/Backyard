@@ -37,6 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django_google_maps',
+    'location_field.apps.DefaultConfig',
     'blog',
     'members',
     'ckeditor',
@@ -101,7 +103,12 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
-
+LOCATION_FIELD = {
+    'provider.google.api': '//maps.google.com/maps/api/js?sensor=false',
+    'provider.google.api_key': 'AIzaSyBy-bjss0dLEkwtabo-l5RIqTUn1i9oJiM',
+    'provider.google.api_libraries': '',
+    'provider.google.map.type': 'ROADMAP',
+}
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
@@ -140,4 +147,4 @@ STATICFILES_DIRS = (
 LOGIN_REDIRECT_URL = "home"
 LOGOUT_REDIRECT_URL = "home"
 
-GOOGLE_API_KEY = 'AIzaSyBy-bjss0dLEkwtabo-l5RIqTUn1i9oJiM'
+# GOOGLE_MAPS_API_KEY = 'AIzaSyBy-bjss0dLEkwtabo-l5RIqTUn1i9oJiM'
