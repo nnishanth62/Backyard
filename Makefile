@@ -21,4 +21,11 @@ tests:
 django_tests: FORCE
 	./pytests.sh
 
+pip: requirements/$(SETTINGS).txt virtual_env_set
+	pip install -r requirements/$(SETTINGS).txt
+
+virtualenv:
+	virtualenv --no-site-packages $(VIRTUAL_ENV)
+	echo $(VIRTUAL_ENV)
+
 clean:
