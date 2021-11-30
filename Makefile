@@ -17,7 +17,11 @@ prod:
 
 tests:
 	echo "testing ... "
-
+"""
+    .PHONY: test
+    test:
+        for test in $(TESTS); do bash test-runner.sh $$test || exit 1; done
+"""
 django_tests: FORCE
 	./pytests.sh
 """
