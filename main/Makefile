@@ -12,24 +12,29 @@ FORCE:
 
 prod:
 	-git commit -a
-	git pull origin master
-	git push origin master
+	git pull origin main
+	git push origin main
 
 tests:
 	echo "testing ... "
-"""
-    .PHONY: test
-    test:
-        for test in $(TESTS); do bash test-runner.sh $$test || exit 1; done
-"""
+	python3 blog/templates/tests.py
+    #for test in $(TESTS);   do bash test-runner.sh $$test || exit 1;    done
+
 django_tests: FORCE
 	./pytests.sh
-"""
+
 pip: requirements/$(SETTINGS).txt virtual_env_set
 	#pip install -r requirements/$(SETTINGS).txt
 
 virtualenv:
 	virtualenv --no-site-packages $(VIRTUAL_ENV)
 	echo $(VIRTUAL_ENV)
-"""
+
+migrations:
+	python3 manage.py makemigrations
+	python3 manage.py migrate
+
+run:
+	python3 manage.py runserver
+
 clean:
