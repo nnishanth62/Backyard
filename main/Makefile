@@ -23,8 +23,8 @@ tests:
 django_tests: FORCE
 	./pytests.sh
 
-pip: requirements/$(SETTINGS).txt virtual_env_set
-	#pip install -r requirements/$(SETTINGS).txt
+install:
+	pip3 install -qr virt/requirements.txt --exists-action w
 
 virtualenv:
 	virtualenv --no-site-packages $(VIRTUAL_ENV)
@@ -36,5 +36,14 @@ migrations:
 
 run:
 	python3 manage.py runserver
+
+migration:
+	python manage.py makemigrations
+
+migrate:
+	python manage.py migrate
+
+heroku:
+	git push heroku master
 
 clean:
