@@ -17,7 +17,7 @@ prod:
 
 tests:
 	echo "testing ... "
-	python3 blog/templates/tests.py
+	python3 blog/tests.py
     #for test in $(TESTS);   do bash test-runner.sh $$test || exit 1;    done
 
 django_tests: FORCE

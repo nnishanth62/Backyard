@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'blog',
     'members',
     'ckeditor',
+    'models',
 ]
 
 MIDDLEWARE = [
@@ -148,3 +149,4 @@ LOGIN_REDIRECT_URL = "home"
 LOGOUT_REDIRECT_URL = "home"
 
 # GOOGLE_MAPS_API_KEY = 'AIzaSyBy-bjss0dLEkwtabo-l5RIqTUn1i9oJiM'
+set DJANGO_SETTINGS_MODULE=mysite.settings
